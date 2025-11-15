@@ -1,0 +1,33 @@
+.col{
+    border: 5px solid black;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.container{
+    display: grid;
+    height: 100vh;
+    border: 5px solid black;
+}
+
+body {
+    background: linear-gradient(to right, #a8e6cf, #dcedc1);
+    overflow: hidden;
+}
+
+.card{
+    border: black 2px solid;
+}
+
+.btn{
+    border: black 1px solid;
+}
+
+.col:hover {
+    background-image: url('transparent-x.png');
+}
+
+.col-6{
+    display: none;
+}

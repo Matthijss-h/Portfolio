@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dammen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="start-screen" class="menu-screen">
+        <h1>Welkom bij Dammen</h1>
+        <p>Klik op de knop om te starten!</p>
+        <button id="start-button">Start the game</button>
+    </div>
+
+    <div class="container">
+        <div class="board" id="board">
+        </div>
+    </div>
+
+    <label class="switch">
+        <input id="stopRotate" type="checkbox" checked>
+        <span class="slider round"></span>
+    </label>
+
+    <div id="end-screen" class="menu-screen" style="display: none;">
+        <h1>Game Over</h1>
+        <p>Klik op de knop om opnieuw te starten!</p>
+        <button id="end-button" style="background-color: #0d6efd">Speel opnieuw</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
