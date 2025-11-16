@@ -468,6 +468,10 @@ footer p {
         text-align: center;
     }
 
+    .social-links {
+    padding-right: 0rem;
+}
+
     .scroll-top {
         bottom: 20px;
         right: 20px;
