@@ -98,7 +98,7 @@ body {
 }
 
 .hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(8px, 8px);
+    transform: rotate(45deg) translate(5px, 5px);
 }
 
 .hamburger.active span:nth-child(2) {
@@ -106,7 +106,7 @@ body {
 }
 
 .hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
+    transform: rotate(-45deg) translate(6px, -6px);
 }
 
 /* Section Styles */
@@ -127,7 +127,6 @@ body {
     font-size: 2.5rem;
     margin-bottom: 2rem;
     text-align: center;
-    animation: fadeInUp 0.8s ease;
 }
 
 .section-text {
@@ -136,7 +135,6 @@ body {
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
-    animation: fadeInUp 0.8s ease 0.2s backwards;
 }
 
 /* Hero Section */
@@ -153,10 +151,6 @@ body {
     gap: 2rem;
 }
 
-.hero-image-container {
-    animation: fadeIn 1s ease;
-}
-
 .hero-image {
     height: 250px;
     width: 250px;
@@ -170,10 +164,6 @@ body {
 .hero-image:hover {
     transform: scale(1.05);
     box-shadow: 0 15px 50px rgba(108, 99, 255, 0.7);
-}
-
-.hero-info-container {
-    animation: fadeInUp 1s ease 0.3s backwards;
 }
 
 .hero-title {
@@ -229,15 +219,10 @@ body {
     text-align: left;
     transition: all 0.3s ease;
     border: 2px solid transparent;
-    animation: fadeInUp 0.6s ease backwards;
     text-decoration: none;
     color: #fff;
     display: block;
 }
-
-.project-card:nth-child(1) { animation-delay: 0.1s; }
-.project-card:nth-child(2) { animation-delay: 0.2s; }
-.project-card:nth-child(3) { animation-delay: 0.3s; }
 
 .project-card:hover {
     transform: translateY(-10px);
@@ -275,7 +260,6 @@ body {
 form {
     max-width: 600px;
     margin: 2rem auto;
-    animation: fadeInUp 0.8s ease 0.3s backwards;
 }
 
 form input,
@@ -385,27 +369,6 @@ footer p {
     font-weight: bold;
 }
 
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 /* Responsive Styles */
 @media (max-width: 768px) {
     .navbar {
@@ -469,8 +432,8 @@ footer p {
     }
 
     .social-links {
-    padding-right: 0rem;
-}
+        padding-right: 0rem;
+    }
 
     .scroll-top {
         bottom: 20px;
@@ -493,4 +456,4 @@ footer p {
         padding: 0.7rem 1.5rem;
         font-size: 1rem;
     }
-}
+}   
