@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activities Website</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const App = () => {
+            React.useEffect(() => {
+                document.body.style.background = "linear-gradient(to right, #a8e6cf, #dcedc1)";
+            }, []);
+
+            const buttonStyles = {
+                margin: '5px',
+                padding: '10px 15px',
+                border: '1px solid black',
+                borderRadius: '8px',
+                color: 'white',
+                cursor: 'pointer',
+            };
+
+            const activitiesStyles = {
+                height: "40px",
+                maxWidth: "600px",
+                border: "1px solid black",
+                borderRadius: "50px",
+                margin: "10px",
+                backgroundColor: "white",
+                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                textAlign: "left",
+                display: "flex",
+                alignItems: "center",
+                paddingLeft: "15px",
+                cursor: "pointer"
+            };
+
+            let responsiveStyles = { ...activitiesStyles };
+            if (window.innerWidth <= 600) {
+                responsiveStyles.justifyContent = "center";
+                responsiveStyles.textAlign = "center";
+                responsiveStyles.paddingLeft = "0";
+            }
+
+            const [bgColor, setBackgroundColor] = React.useState('#a6a6a6');
+            const [headerText, setHeaderText] = React.useState('Select a category');
+            const [showActivities, setShowActivities] = React.useState(true);
+            const [activities, setActivities] = React.useState([]);
+            const [selectedActivity, setSelectedActivity] = React.useState(null);
+
+            const fetchActivities = async (type) => {
+                const Activities = [];
+                const uniqueKeys = new Set();
+
+                while (Activities.length < 6) {
+                    await fetch("https://bored.api.lewagon.com/api/activity/?type=" + type.toLowerCase())
+                        .then(res => res.json())
+                        .then(data => {
+                            if (!uniqueKeys.has(data.key)) {
+                                uniqueKeys.add(data.key);
+                                Activities.push(data);
+                            }
+                        });
+                }
+
+                setActivities([...Activities]);
+            };
+
+            const handleButtonClick = (color, text) => {
+                setBackgroundColor(color);
+                setHeaderText(text);
+                setShowActivities(true);
+                setSelectedActivity(null);
+                fetchActivities(text);
+            };
+
+            const handleActivityClick = (activityData) => {
+                setSelectedActivity(activityData);
+                setShowActivities(false);
+            };
+
+            return (
+                <center>
+                    <div>
+                        <h1>Activities Website</h1>
+                        <button style={{ ...buttonStyles, backgroundColor: '#16A085' }} onClick={() => handleButtonClick('#16A085', 'Education')}>Education</button>
+                        <button style={{ ...buttonStyles, backgroundColor: '#3498DB' }} onClick={() => handleButtonClick('#3498DB', 'Recreational')}>Recreational</button>
+                        <button style={{ ...buttonStyles, backgroundColor: '#9B59B6' }} onClick={() => handleButtonClick('#9B59B6', 'Social')}>Social</button>
+                        <button style={{ ...buttonStyles, backgroundColor: '#E74C3C' }} onClick={() => handleButtonClick('#E74C3C', 'Charity')}>Charity</button>
+                        <button style={{ ...buttonStyles, backgroundColor: '#F39C12' }} onClick={() => handleButtonClick('#F39C12', 'Cooking')}>Cooking</button>
+                        <button style={{ ...buttonStyles, backgroundColor: '#2ECC71' }} onClick={() => handleButtonClick('#2ECC71', 'Relaxation')}>Relaxation</button>
+                        <button style={{ ...buttonStyles, backgroundColor: '#33495E' }} onClick={() => handleButtonClick('#33495E', 'Busywork')}>Busywork</button>
+                    </div>
+
+                    <div style={{ maxWidth: '665px', backgroundColor: bgColor, borderRadius: 28, paddingBottom: "15px" }}>
+
+                        <h2 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: "20px 25px 0px", color: 'white', textShadow: '1px 1px 2px black' }}>
+                            {headerText}
+                            <input type="text" placeholder="Search for activities..." style={{ padding: "10px", borderRadius: "50px", border: "1px solid black", backgroundColor: "lightgray" }} />
+                        </h2>
+
+                        {showActivities ? (
+                            <div style={{ display: "block" }}>
+                                {activities.map((activityData, index) => {
+                                    return (
+                                        <div
+                                            key={activityData.key || index}
+                                            style={responsiveStyles}
+                                            onClick={() => handleActivityClick(activityData)}
+                                        >
+                                            {activityData.activity}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        ) : (
+                            selectedActivity && (
+                                <div style={{ ...activitiesStyles, height: "298px", maxWidth: "600px", display: "block", borderRadius: "20px", textAlign: "left" }}>
+                                    <h3 style={{ paddingBottom: "15px" }}>{selectedActivity.activity}</h3>
+                                    <p style={{ paddingBottom: "5px" }}><b>Type: </b>{headerText}</p>
+                                    <p style={{ paddingBottom: "5px" }}><b>Participants: </b>{selectedActivity.participants}</p>
+                                    <p style={{ paddingBottom: "5px" }}><b>Price: </b>€{selectedActivity.price * 25}</p>
+                                    <p style={{ paddingBottom: "5px" }}><b>Accessibility: </b>{selectedActivity.accessibility * 100}%</p>
+                                    <p style={{ paddingBottom: "5px" }}>
+                                        <b>Link: </b>{selectedActivity.link ? <a href={selectedActivity.link} target="_blank">{selectedActivity.link}</a> : "N/A"}
+                                    </p>
+                                </div>
+                            )
+                        )}
+                    </div>
+                </center>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+
+</html>
